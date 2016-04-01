@@ -6,22 +6,27 @@
  * Domain Path:   /languages
  * Description:   Displays a "Pending posts" dashboard widget for admin-level users.
  * Author:        Zach Green
- * Version:       0.1.0
+ * Version:       1.0.0
  * Licence:       GPL2
  * Author URI:    http://zgreen.github.io
- * Last Change:   10/08/2014
+ * Last Change:   4/1/2016
+ *
+ * @package WP-pending-posts
+ * @since 1.0.0
  */
 
-defined('ABSPATH') or die("No script kiddies, please!");
+defined( 'ABSPATH' ) or die( 'No script kiddies, please!' );
 
-// Add dashboard widgets
+/**
+ * Add dashboard widgets
+ */
 function wpzgreen_add_pending_widget() {
-	// Admin-level users only
-	if (current_user_can('add_users')) {
-		// Add a pending posts dashboard widget
+	// Check for Admin-level permissions.
+	if ( current_user_can( 'add_users' ) ) {
+		// Add a pending posts dashboard widget.
 		wp_add_dashboard_widget(
-			'wpzgreen_pending_dashboard_widget',         // Widget slug.
-			'Pending posts',         // Title.
+			'wpzgreen_pending_dashboard_widget', // Widget slug.
+			'Pending posts', // Title.
 			'wpzgreen_pending_dashboard_widget_function' // Display function.
 		);
 	}
@@ -29,7 +34,9 @@ function wpzgreen_add_pending_widget() {
 
 add_action( 'wp_dashboard_setup', 'wpzgreen_add_pending_widget' );
 
-// Build the Pending posts dashboard widget
+/**
+ * Build the Pending posts dashboard widget
+ */
 function wpzgreen_pending_dashboard_widget_function() {
 
 	$args = array(
@@ -37,36 +44,36 @@ function wpzgreen_pending_dashboard_widget_function() {
 	  'orderby'   => 'title',
 	  'order'     => 'ASC',
 	  'post_status' => 'pending',
-	  'posts_per_page' => 10
+	  'posts_per_page' => 10,
 	);
 
 	$pending_posts = new WP_Query( $args );
 
-	// The Loop
+	// The Loop.
 	if ( $pending_posts->have_posts() ) {
-		echo  '<table class="widefat">' .
-						'<thead>' .
-							'<tr>' .
-								'<th class="row-title">Post title</th>' .
-								'<th>Post author</th>' .
-							'</tr>' .
-						'</thead>' .
-						'<tbody>';
+		echo '<table class="widefat">' .
+			'<thead>' .
+				'<tr>' .
+					'<th class="row-title">Post title</th>' .
+					'<th>Post author</th>' .
+				'</tr>' .
+			'</thead>' .
+			'<tbody>';
 		while ( $pending_posts->have_posts() ) {
 			$pending_posts->the_post();
 			echo  '<tr>' .
-							'<td class="row-title"><a href="' . get_edit_post_link() . '">' . get_the_title() . '</a></td>' .
-							'<td>' . get_the_author() . '</td>' .
-						'</tr>';
+					'<td class="row-title"><a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a></td>' .
+					'<td>' . get_the_author() . '</td>' .
+				'</tr>';
 		}
 		echo    '</tbody>' .
-					'</table>';
+			'</table>';
 	} else {
 		echo 'There are no pending posts.';
 	}
 
 	wp_reset_postdata();
-	
+
 }
 
 ?>
