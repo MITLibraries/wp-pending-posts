@@ -71,15 +71,10 @@ function wpzgreen_pending_dashboard_widget_function() {
 	if ( $urgent_posts->have_posts() ) {
 		while ( $urgent_posts->have_posts() ) {
 			$urgent_posts->the_post();
-			echo  '<tr class="form-invalid">' .
-					'<td class="row-title">' .
-						'<a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a>' .
-					'</td>' .
-					'<td>' . get_the_author() . '</td>' .
-				'</tr>';
+			wpzgreen_pending_dashboard_widget_row();
 		}
 	} else {
-		echo 	'<tr>' .
+		echo '<tr>' .
 				'<td>There are no urgent posts</td>' .
 			'</tr>';
 	}
@@ -91,12 +86,7 @@ function wpzgreen_pending_dashboard_widget_function() {
 	if ( $pending_posts->have_posts() ) {
 		while ( $pending_posts->have_posts() ) {
 			$pending_posts->the_post();
-			echo  '<tr>' .
-					'<td class="row-title">' .
-						'<a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a>' .
-					'</td>' .
-					'<td>' . get_the_author() . '</td>' .
-				'</tr>';
+			wpzgreen_pending_dashboard_widget_row();
 		}
 	} else {
 		echo '<tr>' .
@@ -108,4 +98,16 @@ function wpzgreen_pending_dashboard_widget_function() {
 		'</table>';
 	wp_reset_postdata();
 
+}
+
+/**
+ * Render one row of the widget
+ */
+function wpzgreen_pending_dashboard_widget_row() {
+	echo  '<tr class="form-invalid">' .
+		'<td class="row-title">' .
+			'<a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a>' .
+		'</td>' .
+		'<td>' . get_the_author() . '</td>' .
+	'</tr>';
 }
