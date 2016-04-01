@@ -62,7 +62,9 @@ function wpzgreen_pending_dashboard_widget_function() {
 		while ( $pending_posts->have_posts() ) {
 			$pending_posts->the_post();
 			echo  '<tr>' .
-					'<td class="row-title"><a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a></td>' .
+					'<td class="row-title">' .
+						'<a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a>' .
+					'</td>' .
 					'<td>' . get_the_author() . '</td>' .
 				'</tr>';
 		}
@@ -75,5 +77,3 @@ function wpzgreen_pending_dashboard_widget_function() {
 	wp_reset_postdata();
 
 }
-
-?>

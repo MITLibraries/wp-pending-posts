@@ -19,6 +19,8 @@ engines:
     checks:
       Generic WhiteSpace DisallowTabIndent TabsUsed:
         enabled: false
+      PSR1 Files SideEffects FoundWithSymbols:
+        enabled: false
       PSR2 ControlStructures ControlStructureSpacing SpacingAfterOpenBrace:
         enabled: false
       PSR2 ControlStructures ControlStructureSpacing SpaceBeforeCloseBrace:
@@ -38,6 +40,8 @@ engines:
       Squiz Functions FunctionDeclarationArgumentSpacing SpacingAfterOpen:
         enabled: false
       Squiz Functions FunctionDeclarationArgumentSpacing SpacingBeforeClose:
+        enabled: false
+      Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
         enabled: false
   phpmd:
     enabled: true
