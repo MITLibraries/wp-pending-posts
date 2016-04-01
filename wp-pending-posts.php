@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:   WP Pending Posts
- * Plugin URI:    https://github.com/zgreen/wp-pending-posts
+ * Plugin URI:    https://github.com/mitlibraries/wp-pending-posts
  * Text Domain:   wpzgreen_pending_posts
  * Domain Path:   /languages
  * Description:   Displays a "Pending posts" dashboard widget for admin-level users.
