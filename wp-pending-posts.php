@@ -72,9 +72,11 @@ function wpzgreen_pending_dashboard_widget_function() {
 		while ( $urgent_posts->have_posts() ) {
 			$urgent_posts->the_post();
 			echo  '<tr class="form-invalid">' .
-							'<td class="row-title"><a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a></td>' .
-							'<td>' . get_the_author() . '</td>' .
-						'</tr>';
+					'<td class="row-title">' .
+						'<a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a>' .
+					'</td>' .
+					'<td>' . get_the_author() . '</td>' .
+				'</tr>';
 		}
 	} else {
 		echo 	'<tr>' .
