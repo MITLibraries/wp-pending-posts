@@ -59,17 +59,16 @@ function wpzgreen_pending_dashboard_widget_function() {
 	$urgent_posts = new WP_Query( $args_urgent );
 
 	echo  '<table class="widefat">' .
-						'<thead>' .
-							'<tr>' .
-								'<th class="row-title">Post title</th>' .
-								'<th>Post author</th>' .
-							'</tr>' .
-						'</thead>' .
-						'<tbody>';
+		'<thead>' .
+			'<tr>' .
+				'<th class="row-title">Post title</th>' .
+				'<th>Post author</th>' .
+			'</tr>' .
+		'</thead>' .
+		'<tbody>';
 
 	// The Loops.
 	if ( $urgent_posts->have_posts() ) {
-
 		while ( $urgent_posts->have_posts() ) {
 			$urgent_posts->the_post();
 			echo  '<tr class="form-invalid">' .
@@ -79,8 +78,8 @@ function wpzgreen_pending_dashboard_widget_function() {
 		}
 	} else {
 		echo 	'<tr>' .
-						'<td>There are no urgent posts</td>' .
-					'</tr>';
+				'<td>There are no urgent posts</td>' .
+			'</tr>';
 	}
 
 	wp_reset_postdata();
@@ -97,16 +96,14 @@ function wpzgreen_pending_dashboard_widget_function() {
 					'<td>' . get_the_author() . '</td>' .
 				'</tr>';
 		}
-		echo    '</tbody>' .
-			'</table>';
 	} else {
 		echo '<tr>' .
-						'<td>There are no pending posts</td>' .
-					'</tr>' .
-				'</tbody>' .
-			'</table>';
+				'<td>There are no pending posts</td>' .
+			'</tr>';
 	}
 
+	echo '</tbody>' .
+		'</table>';
 	wp_reset_postdata();
 
 }
