@@ -43,7 +43,7 @@ function wpzgreen_pending_dashboard_widget_function() {
 		'post_status'    => 'pending',
 		'posts_per_page' => 10,
 		'meta_key'       => 'urgent',
-		'meta_value'     => 1
+		'meta_value'     => 1,
 	);
 
 	$args_pending = array(
@@ -53,10 +53,10 @@ function wpzgreen_pending_dashboard_widget_function() {
 		'post_status'    => 'pending',
 		'posts_per_page' => 10,
 		'meta_key'       => 'urgent',
-		'meta_value'     => 0
+		'meta_value'     => 0,
 	);
 
-	$urgent_posts = new WP_Query ( $args_urgent );
+	$urgent_posts = new WP_Query( $args_urgent );
 
 	echo  '<table class="widefat">' .
 						'<thead>' .
@@ -67,13 +67,13 @@ function wpzgreen_pending_dashboard_widget_function() {
 						'</thead>' .
 						'<tbody>';
 
-	// The Loops
+	// The Loops.
 	if ( $urgent_posts->have_posts() ) {
-		
+
 		while ( $urgent_posts->have_posts() ) {
 			$urgent_posts->the_post();
 			echo  '<tr class="form-invalid">' .
-							'<td class="row-title"><a href="' . get_edit_post_link() . '">' . get_the_title() . '</a></td>' .
+							'<td class="row-title"><a href="' . esc_url( get_edit_post_link() ) . '">' . get_the_title() . '</a></td>' .
 							'<td>' . get_the_author() . '</td>' .
 						'</tr>';
 		}
