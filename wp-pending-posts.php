@@ -24,5 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Include the necessary classes.
 include_once( 'class-pending-posts-widget.php' );
 
+// Load the widget styles.
+add_action( 'admin_enqueue_scripts', array( 'mitlib\Pending_Posts_Widget', 'styles' ) );
+
 // Call the class' init method as part of dashboard setup.
 add_action( 'wp_dashboard_setup', array( 'mitlib\Pending_Posts_Widget', 'init' ) );

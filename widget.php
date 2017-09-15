@@ -21,7 +21,7 @@ if ( $urgent->have_posts() ) {
 		// Add the 'form-invalid' class to all urgent post listings so they appear red.
 		$urgent->the_post();
 	?>
-		<tr class="form-invalid">
+		<tr class="urgent">
 			<td class="row-title">
 				<a href="<?php echo esc_url( get_edit_post_link() ); ?>">
 					<?php echo esc_html( get_the_title() ); ?>
