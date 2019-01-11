@@ -3,10 +3,10 @@
  * Plugin Name:   WP Pending Posts
  * Plugin URI:    https://github.com/MITLibraries/wp-pending-posts
  * Description:   Displays a "Pending posts" dashboard widget for admin-level users.
- * Version:       1.0.0
+ * Version:       1.0.1
  * Author:        MIT Libraries
  * Author URI:    https://github.com/MITLibraries
- * Licence:       GPL2
+ * Licence:       GPL3
  *
  * @package WP Pending Posts
  * @since 0.1.0
