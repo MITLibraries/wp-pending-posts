@@ -87,8 +87,16 @@ class Pending_Posts_Widget {
 	 * Loads custom stylesheet.
 	 */
 	public static function styles() {
-		wp_register_style( 'pending_styles', plugin_dir_url( __FILE__ ) . 'wp-pending-posts.css', false, '1.0.0' );
+		wp_register_style( 'pending_styles', plugin_dir_url( __FILE__ ) . 'wp-pending-posts.css', false, self::version() );
 		wp_enqueue_style( 'pending_styles' );
+	}
+
+	/**
+	 * The current plugin version, read from WordPress.
+	 */
+	public static function version() {
+		$result = get_plugin_data( plugin_dir_path(__FILE__) . 'wp-pending-posts.php' );
+		return $result['Version'];
 	}
 
 	/**
