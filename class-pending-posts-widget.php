@@ -14,19 +14,73 @@ namespace mitlib;
 class Pending_Posts_Widget {
 
 	/**
+	 * The basic query for pending posts.
+	 */
+	const QUERY = array(
+		'post_type' => 'any',
+		'orderby' => 'title',
+		'order' => 'ASC',
+		'post_status' => 'pending',
+		'posts_per_page' => 10,
+	);
+
+	/**
 	 * The id of this widget.
 	 */
 	const WID = 'pending_posts';
+
+	/**
+	 * Check for the context of the plugin. Is ACF active? Is there an Urgent flag defined?
+	 *
+	 * This influences how pending posts are queried, and the language around the widget.
+	 *
+	 * Returns true if the ACF plugin is present, and the Urgent flag is present.
+	 * Returns false otherwise.
+	 */
+	public static function context() {
+		$result = false;
+		// group_54dd062c31627 is the value for the 'Urgent for post' field group. Sigh...
+		if ( is_plugin_active( 'advanced-custom-fields-pro/acf.php' ) && acf_get_field_group( 'group_54dd062c31627' ) ) {
+			$result = true;
+		}
+		return $result;
+	}
 
 	/**
 	 * Hook to wp_dashboard_setup to add the widget.
 	 */
 	public static function init() {
 		wp_add_dashboard_widget(
-			self::WID, // A unique slug/ID
-			'Urgent and/or pending posts', // Visible name for the widget.
+			self::WID, // A unique slug/ID.
+			( self::context() ? 'Pending posts and their urgency' : 'Pending posts' ), // Visible name for the widget.
 			array( 'mitlib\Pending_Posts_Widget', 'widget' )  // Callback for the main widget content.
 		);
+	}
+
+	/**
+	 * Query for pending posts with the urgent flag set.
+	 */
+	public static function query_pending() {
+		$args = self::QUERY;
+		if ( true == self::context() ) {
+			$args['meta_key'] = 'urgent';
+			$args['meta_value'] = 0;
+		}
+		return new \WP_Query( $args );
+	}
+
+	/**
+	 * Query for pending posts with the urgent flag set.
+	 */
+	public static function query_urgent() {
+		// Guard clause to return null if the context isn't correct.
+		if ( false == self::context() ) {
+			return null;
+		}
+		$args = self::QUERY;
+		$args['meta_key'] = 'urgent';
+		$args['meta_value'] = 1;
+		return new \WP_Query( $args );
 	}
 
 	/**
@@ -50,23 +104,12 @@ class Pending_Posts_Widget {
 	 * ORDER BY meta_value DESC, title ASC
 	 */
 	public static function widget() {
-		// Define the basic query arguments array. This will then be slightly modified ahead of each query.
-		$args = array(
-			'post_type' => 'any',
-			'orderby' => 'title',
-			'order' => 'ASC',
-			'post_status' => 'pending',
-			'posts_per_page' => 10,
-			'meta_key' => 'urgent',
-		);
+		// The first query looks for pending posts with the urgent flag set, assuming ACF and the Urgent flag exist.
+		$urgent = self::query_urgent();
 
-		// The first query looks for pending posts _with_ the urgent flag.
-		$args['meta_value'] = 1;
-		$urgent = new \WP_Query( $args );
-
-		// The second query looks for pending posts _without_ the urgent flag.
-		$args['meta_value'] = 0;
-		$pending = new \WP_Query( $args );
+		// The second query returns all pending posts if the context is false, or posts without the urgent flag set if
+		// the context is true.
+		$pending = self::query_pending();
 
 		// Use the template to render widget output.
 		require_once( 'widget.php' );

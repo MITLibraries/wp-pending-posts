@@ -16,7 +16,7 @@
 	</thead>
 	<tbody>
 <?php
-if ( $urgent->have_posts() ) {
+if ( isset( $urgent ) && $urgent->have_posts() ) {
 	while ( $urgent->have_posts() ) {
 		// Add the 'form-invalid' class to all urgent post listings so they appear red.
 		$urgent->the_post();
