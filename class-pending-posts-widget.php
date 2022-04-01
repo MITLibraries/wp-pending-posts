@@ -1,6 +1,10 @@
 <?php
 /**
- * Class that defines a "pending posts" dashboard widget.
+ * Class that defines a "pending posts" dashboard widget. If an "urgent" flag has been defined using Advanced Custom
+ * Fields (which our sites currently have), then pending posts with that flag are shown first, highlighted, followed by
+ * posts without that flag set.
+ * 
+ * If the flag has not been defined in this precise way, then the widget simply shows a list of pending posts.
  *
  * @package WP Pending Posts
  * @since 1.0.0
@@ -58,7 +62,7 @@ class Pending_Posts_Widget {
 	}
 
 	/**
-	 * Query for pending posts with the urgent flag set.
+	 * Query for pending posts. If an urgent flag is defined, then we check for posts which do not have it set.
 	 *
 	 * @SuppressWarnings(PHPMD.MissingImport)
 	 */
@@ -72,7 +76,7 @@ class Pending_Posts_Widget {
 	}
 
 	/**
-	 * Query for pending posts with the urgent flag set.
+	 * Query for pending posts with the urgent flag set. If no urgent flag is defined, return null.
 	 *
 	 * @SuppressWarnings(PHPMD.MissingImport)
 	 */
