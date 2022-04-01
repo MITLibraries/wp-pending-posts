@@ -59,6 +59,8 @@ class Pending_Posts_Widget {
 
 	/**
 	 * Query for pending posts with the urgent flag set.
+	 *
+	 * @SuppressWarnings(PHPMD.MissingImport)
 	 */
 	public static function query_pending() {
 		$args = self::QUERY;
@@ -71,6 +73,8 @@ class Pending_Posts_Widget {
 
 	/**
 	 * Query for pending posts with the urgent flag set.
+	 *
+	 * @SuppressWarnings(PHPMD.MissingImport)
 	 */
 	public static function query_urgent() {
 		// Guard clause to return null if the context isn't correct.
@@ -95,7 +99,7 @@ class Pending_Posts_Widget {
 	 * The current plugin version, read from WordPress.
 	 */
 	public static function version() {
-		$result = get_plugin_data( plugin_dir_path(__FILE__) . 'wp-pending-posts.php' );
+		$result = get_plugin_data( plugin_dir_path( __FILE__ ) . 'wp-pending-posts.php' );
 		return $result['Version'];
 	}
 
@@ -110,6 +114,8 @@ class Pending_Posts_Widget {
 	 * SELECT posts
 	 * WHERE post_status = 'pending'
 	 * ORDER BY meta_value DESC, title ASC
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
 	 */
 	public static function widget() {
 		// The first query looks for pending posts with the urgent flag set, assuming ACF and the Urgent flag exist.
